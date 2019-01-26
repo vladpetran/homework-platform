@@ -1,0 +1,138 @@
+﻿html{
+    min-width:100%;
+    min-height:100%;
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-image: linear-gradient(135deg, #670d10 0%, #092756 100%);
+    background-repeat:no-repeat;
+    background-size:cover;
+    color:aliceblue;
+}
+
+ /*Set padding to keep content from hitting the edges*/ 
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+ /*Set width on the form input elements since they're 100% wide by default*/ 
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+ /*styles for validation helpers*/ 
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+h4{
+    position:absolute;
+    top:0%;
+    color:aliceblue;
+    font-family:Tahoma;
+}
+
+#sideTable{
+    font-size:30px;
+}
+
+td{
+    color:aliceblue;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.left {
+  position: fixed;
+  padding: 10px;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 170px;
+  background-color:black;
+}
+
+.left ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.left ul li {
+  margin-bottom: 25px;
+  text-align:center;
+  max-width:170px;
+}
+.left a {
+  font-size:20px;
+  color: #aaacfa;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.left a:hover {
+  color: white;
+  border-bottom-color: white;
+}
+
+
+.right {
+  position: relative;
+  margin-left: 175px;
+}
+
+.userInfo{
+    font-size: 18px; 
+    color:floralwhite;
+    max-width:170px;
+}
+div#resDiv{
+    font-size:18px;
+    margin-left:20px;
+}
+
+img#landPic{
+    width:78%;
+    height:100%;
+}
+
+textarea#textArea{
+    max-width:1300px;
+    max-height:1000px;
+    width:1000px;
+    height:600px;
+}
+
+table#hwTable td{
+    width:20px;
+}
+
+.regDiv{
+    margin-left:100px;
+    text-align:left;
+}
