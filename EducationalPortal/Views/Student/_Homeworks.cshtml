@@ -1,0 +1,114 @@
+﻿@model IEnumerable<BusinessLayer.Models.StudentHomeworkViewModel>
+
+@{
+    ViewBag.Title = "_Homeworks";
+    Layout = null;
+}
+
+<h2>Homeworks</h2>
+
+@if(Model.Count()!=0)
+{ 
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Requirements)
+        </th>
+        <th>
+            @* @Html.Display("Status")*@
+            Status
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Grade)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+
+        <th>
+            Files
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Requirements)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Grade)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.TeacherName)
+                </td>*@
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                @if (item.Path == "")
+                {
+                    @*<div class="container">
+                        @using (Html.BeginForm("UploadHomeworkFiles", "StudentHomeworks", new { SHomeID = @item.SHomeID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <table class="table">
+                                <tr>
+                                    <td>File:</td>
+                                    <td><input type="file" name="Files" id="Files" multiple /></td>
+                                </tr>
+
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td><input type="submit" name="submit" value="Upload" /></td>
+
+                                </tr>
+                            </table>
+                        }
+
+                    </div>*@
+                }
+                else
+                {
+
+                    string username = Request.Cookies["UserSettings"].Values["UserName"];
+                    string s = item.Path.Split(new String[] { username }, StringSplitOptions.None).LastOrDefault();
+
+                    <p>@s</p>
+                }
+            </td>
+        </tr>
+      
+    }
+   
+</table>
+   
+}
+else
+{
+    <h3>
+        Your don't have   homeworks!!!
+    </h3><br />
+    @*if (Model.First().information=="all")
+    { <img src="/yuhu.png" />}*@
+        
+
+}

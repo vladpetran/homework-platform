@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "ChangeTeacher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<BusinessLayer.Models.StudInfoViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Studenti</title>
+</head>
+<body>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>Profesor</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                @if (item.TeacherID == 0)
+                {
+                <td>Profesori neasignati</td>
+                    <td>
+                        @Html.ActionLink("Assign Teacher", "GetStudent", new { studentId = item.StudentID })
+
+                    </td>}
+                else
+                {
+                    foreach (var teacher in ViewBag.Teachers)
+                    {
+                        if (teacher.TeacherID == item.TeacherID)
+                        {
+                            <td>@teacher.FullName</td>
+                            <td>
+                                @Html.ActionLink("Change Teacher", "GetStudent", new { studentId = item.StudentID })
+                            </td>
+                        }
+                    }
+                }
+
+            </tr>
+        }
+
+    </table>
+</body>
+</html>

@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "ChangeTeacher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<BusinessLayer.Models.StudInfoViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Resetare Parola</title>
+</head>
+<body>
+
+    @*<table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.StudentID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>Teacher</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Reset Password", "ResetPass", new { studentId = item.StudentID })
+                    </td>
+                </tr>
+            }
+
+        </table>*@
+    @using (Html.BeginForm())
+{
+    <div id="resDiv">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <h2>Reset Password </h2>
+        <br />
+        <br />
+        @Html.Label("Email Address")
+        <br />
+        @Html.Editor("Email")
+        <br />
+        <br />
+        <input type="submit" value="Reset" class="btn btn-danger" />
+        @if(ViewBag.Reset!=null)
+        {
+            if(ViewBag.Reset==true)
+            {
+                <p>Password change successful</p>
+            }
+            else if(ViewBag.Reset == false)
+            {
+                <p>The password could not be changed</p>
+            }
+        }
+    </div>
+}
+
+    @*<label>Email</label>
+        <br />
+        <input type="text" value="Email" />
+        <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("ResetPass", new { email="123@email.com"})'">Reset</button>*@
+</body>
+</html>

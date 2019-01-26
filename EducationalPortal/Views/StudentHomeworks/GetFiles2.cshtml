@@ -1,0 +1,23 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "GetFiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="container">
+
+    @using (Html.BeginForm("OpenFile", "StudentHomeworks",new{homeID=ViewBag.HomeID}))
+    {
+        @Html.TextArea("TextAreaName", (string)ViewBag.content, new { id = "textArea" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+               
+            </div>
+        </div>
+       
+    }
+    <button>@Html.ActionLink("Back","MyStudents","Teacher")</button>
+</div>

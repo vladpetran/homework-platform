@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Pagina Principala</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @if (@Request.Cookies["UserSettings"] != null)
+    {
+        <div class="left">
+            <ul>
+                <li class="userInfo">
+                    Bun venit
+                    @if (@Request.Cookies["UserSettings"] != null)
+                    {
+                        <br /><strong> @Request.Cookies["UserSettings"].Values["UserName"] </strong>
+                    }
+                </li>
+                <br />
+                <br />
+                <hr />
+                @if (@Request.Cookies["UserSettings"] != null)
+                {
+                    <li class="userInfo">@Request.Cookies["UserSettings"].Values["Role"] Menu</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    if (@Request.Cookies["UserSettings"].Values["Role"] == "Student")
+                    {
+                        <li>@Html.ActionLink("Teme", "Homeworks", "Student")</li>
+                        <li>@Html.ActionLink("Rapoarte", "MyReports", "Student")</li>
+                    }
+                    if (@Request.Cookies["UserSettings"].Values["Role"] == "Teacher")
+                    {
+                        <li>@Html.ActionLink("Creare Tema Noua", "Create", "Homework")</li>
+                        <li>@Html.ActionLink("Vizualizare teme", "MyHomeworks", "Teacher")</li>
+                        <li>@Html.ActionLink("Rapoarte", "Reports", "Teacher")</li>
+                        <li>@Html.ActionLink("Studenti asignati", "MyStudents", "Teacher")</li>
+                        <li>@Html.ActionLink("Profilul meu", "MyProfile", "Teacher")</li>
+                    }
+                    if (@Request.Cookies["UserSettings"].Values["Role"] == "Administrator")
+                    {
+                        <li>@Html.ActionLink("Inregistrare profesor", "CreateTeacher", "Admin")</li>
+                        <li>@Html.ActionLink("Asignare studenti", "ChangeTeacher", "Admin")</li>
+                        <li>@Html.ActionLink("Resetare parola", "ResetPass", "Admin")</li>
+                    }
+
+                    <li>@Html.ActionLink("Iesire cont", "Logout", "Account")</li>
+                }
+                <hr />
+            </ul>
+        </div>
+    }
+    @if (@Request.Cookies["UserSettings"] != null)
+    {
+        <div class="right">
+            @RenderBody()
+        </div>
+    }
+    else
+    {
+        <div class="regDiv">
+            @RenderBody()
+        </div>
+    }
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

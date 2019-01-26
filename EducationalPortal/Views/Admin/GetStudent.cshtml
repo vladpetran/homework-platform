@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "GetStudent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model BusinessLayer.Models.StudInfoViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Studenti</title>
+    <script language="JavaScript" type="text/javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>Profesor</th>
+            <th></th>
+        </tr>
+
+
+
+            <tr>
+                <td id="sID">
+                    @Html.DisplayFor(model => model.StudentID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </td>
+                <td hidden>@Html.DisplayFor(model => model.TeacherID)</td>
+                <td>                
+                    @Html.DropDownListFor(model => model.TeacherID, new SelectList(ViewBag.Teachers, "TeacherID", "FullName"), new { @class = "ddList",@id="dropList" })
+                </td>
+
+                <td>
+                   <button class="btn btn-primary" onclick="UpdateTeacher()">Actualizati</button>
+
+                </td>
+            </tr>
+    </table>
+    <script type="text/javascript">
+        @*$(function () {
+            $('#dropList').change(function () {
+                var number = this.value; // get the selected value
+                @Model.TeacherID=number
+            });
+        });*@
+
+        $(document).ready(function () {
+            $('#dropList').change(function () {
+                var number = $('#dropList').val();
+                this.teacherID = number;
+            });
+        });
+
+        function UpdateTeacher()
+        {
+            var values = {studentID:@this.Model.StudentID,teacherID:$('#dropList').val()}
+            var vs = JSON.stringify(values);
+            $.ajax({
+                url: '@Url.Action("UpdateTeacher", "Admin")',
+                type: "POST",
+                data: vs,
+                contentType:"application/json",
+                success: function (FeeListResp, textStatus, jqXHR) {
+                    location.href="ChangeTeacher";
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                },
+                complete: function () {
+                }
+            });
+        }
+
+
+        @*$('#UpdateTeacher').click(function () {
+        var sID = $('#sID').val();
+        var tID = $('#TeacherID').val();
+        var path = '@Url.Content("~/Admin/UpdateTeacher")' + "?teacherID=" + tID + "+&studentID=" + sID;
+        $(this).attr("href", path);
+    });*@
+    </script>
+</body>
+</html>
+
+

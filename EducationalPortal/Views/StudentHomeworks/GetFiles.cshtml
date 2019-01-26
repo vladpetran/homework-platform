@@ -1,0 +1,38 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "GetFiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table-bordered table-condensed">
+    <tr>
+        <th>Numele Fisierului</th>
+        <th>Descarcare</th>
+        <th>Deschide in fereastra noua</th>
+        <th>Deschide aici</th>
+    </tr>
+    @if (Model != null)
+    {
+        for (var i = 0; i <= Model.Count - 1; i++)
+        {
+            <tr>
+                <td>
+                    @Model[i].ToString()
+                </td>
+                <td>
+                    @Html.ActionLink("Descarcare " + Model[i].ToString(), "Download", new { StudentName = ViewBag.StudentName, FileName = @Model[i].ToString(), homeID = ViewBag.HomeID })
+                </td>
+                <td>
+                    @Html.ActionLink("Deschide in fereastra noua " + Model[i].ToString(), "GetPdf", new { StudentName = ViewBag.StudentName, FileName = @Model[i].ToString(), homeID = ViewBag.HomeID }, new { target = "_blank" })
+                </td>
+                <td>
+                    @Html.ActionLink("Deschide fisier " + Model[i].ToString(), "OpenFile", new { StudentName = ViewBag.StudentName, FileName = @Model[i].ToString(),homeID=ViewBag.HomeID })
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+
+

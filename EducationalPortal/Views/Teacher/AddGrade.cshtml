@@ -1,0 +1,40 @@
+﻿@model BusinessLayer.Models.AddGrade
+
+@{
+    ViewBag.Title = "AddGrade";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddGrade</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.SHomeID)
+        @Html.HiddenFor(model => model.StudentID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Grade, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Grade)
+                @Html.ValidationMessageFor(model => model.Grade)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "MyStudents")
+</div>

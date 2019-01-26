@@ -1,0 +1,96 @@
+﻿@model BusinessLayer.Models.StudentHomeworkViewModel
+
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Homework Details</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusID)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Grade)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Requirements)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Requirements)
+        </dd>
+        <dt>
+            Files:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Path)
+
+        </dd>
+
+
+        @if ((Model.StatusID == "Uploaded") || (Model.StatusID == "Commented"))
+        {<br />
+            <button>
+                @Html.ActionLink("Vezi fisiere", "GetFiles", "StudentHomeworks", new { studentId = Model.StudentID, sHId = Model.SHomeID,studentName=Model.StudentName }, null)
+            </button>
+
+            <button>
+                @Html.ActionLink("Adauga nota", "AddGrade", "Teacher", new { SHId = Model.SHomeID, studentId = Model.StudentID }, null)
+        </button>
+
+            <button>
+                @Html.ActionLink("Adauca comentariu", "AddComments", "Teacher", new { SHId = Model.SHomeID, studentId = Model.StudentID }, null)
+            </button>
+            <button>
+                @Html.ActionLink("Respinge tema", "Rejected", "Teacher", new { SHId = Model.SHomeID, studentId = Model.StudentID }, null)
+            </button>
+
+        }
+
+    </dl>
+</div>

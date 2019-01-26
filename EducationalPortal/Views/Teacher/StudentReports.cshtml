@@ -1,0 +1,73 @@
+﻿@model IEnumerable<BusinessLayer.Models.StudInfoViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MyStudents</title>
+</head>
+<body>
+    @if (Model.Count() == 0)
+    {
+        <p>You don't have good students! :(</p>
+    }
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GradeAverage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th></th>
+        </tr>
+       
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GradeAverage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.ActionLink("View Student Homeworks", "StudentHomeworks", new { studentId = item.StudentID })
+
+                </td>
+            </tr>
+
+        }
+       
+
+    </table>
+    <button>
+        @Html.ActionLink("Save as PDF", "GeneratePDF", "Teacher", new { reportID = Request.QueryString["ReportID"] }, new { target = "_blank" })
+    </button>
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿@model BusinessLayer.Models.Rejected
+
+@{
+    ViewBag.Title = "Rejected";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Reject</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.SHomeID)
+        @Html.HiddenFor(model => model.StudentID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comments, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Comments)
+                @Html.ValidationMessageFor(model => model.Comments)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div class="form-horizontal">
+    <hr />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button class="btn btn-default" onclick="location.href='@Url.Action("MyStudents", "Teacher")'">Cancel</button>
+        </div>
+    </div>
+</div>

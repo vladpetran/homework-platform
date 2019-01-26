@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+@model BusinessLayer.RegisterUserService.UserServices
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Pagina Principala</title>
+    @Styles.Render("~/Content/LogInStyle.css")
+    @Scripts.Render("~/bundles/jquery")
+    @*<link rel="stylesheet" type="text/css" href="Content/LogInStyle.css" />*@
+</head>
+<body>
+    <h1 id="eduh1">Bun venit pe platforma E-Learning</h1>
+    <div id="homeDiv">
+        <p id="checkReg"></p>
+        <button type="button" class="btn" onclick="LogIn()">Autentificare</button>
+        <button type="button" class="btn" onclick="SignUp()">Creare cont</button>
+    </div>
+    <div class="alert alert-danger">
+        @Html.ValidationMessage("errMess")
+    </div>
+    <script>
+        function LogIn() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    document.getElementById("homeDiv").innerHTML = xhttp.response;
+                }
+            };
+            xhttp.open("GET", "Account/Login", true);
+            xhttp.send();
+        }
+
+        function SignUp() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    document.getElementById("homeDiv").innerHTML = xhttp.response;
+                }
+            };
+            xhttp.open("GET", "Account/Register", true);
+            xhttp.send();
+        }
+
+        function checkUser() {
+            var form = $('#formLogin');
+            $.ajax({
+                preventdefault: true,
+                cache: false,
+                async: true,
+                type: "POST",
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (data) {
+                    if (data == "success") {
+                        location.href = "Home/Index";
+                    }
+                    else if (data == "fail") {
+                        document.getElementById("okLogin").innerHTML = "User name or password incorrect!";
+                    }
+                }
+            });
+        }
+        //function checkRegister() {
+        //    var form = $('#formRegister');
+        //    $.ajax({
+        //        preventdefault: true,
+        //        cache: false,
+        //        async: true,
+        //        type: "POST",
+        //        url: form.attr('action'),
+        //        data: form.serialize(),
+        //        success: function (data) {
+        //            if (data == "success") {
+        //                location.href = "Account/Register3";
+        //            }
+        //            else {
+        //                document.getElementById("checkReg").innerHTML = data;
+        //            }
+        //        }
+        //    });
+        //}
+
+        function checkRegister() {
+            var form = $('#formRegister');
+            $.ajax({
+                preventdefault: true,
+                cache: false,
+                async: true,
+                type: "POST",
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (data) {
+                    document.getElementById("homeDiv").innerHTML = data;
+                },
+                error: function(data){
+                    document.getElementById("checkReg").innerHTML = "Registration was not successful. Please try again!";
+            }
+            });
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,136 @@
+﻿@model BusinessLayer.RegisterUserService.UserServices
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "formRegister" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Creare cont utilizator</h4>
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber)
+                @Html.ValidationMessageFor(model => model.PhoneNumber)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Firstname, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Firstname)
+                @Html.ValidationMessageFor(model => model.Firstname)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HomeAdress, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HomeAdress)
+                @Html.ValidationMessageFor(model => model.HomeAdress)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TeacherID, new { @class="control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TeacherID, new SelectList(ViewBag.Teachers, "TeacherID", "FullName"), new { @class="ddList"})
+
+
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <p id="checkReg"></p>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Inregistrare" onclick="return checkRegister()" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<br />
+<div>
+    <input type="button" class="btn btn-danger" value="Pagina Principala" onclick="location.href='@Url.Action("Index","Account")'" />
+</div>
+<script>
+    function checkRegister() {
+        var form = $('#formRegister');
+        $.ajax({
+            preventdefault: true,
+            cache: false,
+            async: true,
+            type: "POST",
+            url: form.attr('action'),
+            data: form.serialize(),
+            success: function (data) {
+                if (data == "success") {
+                    location.href = "Account/Register3";
+                }
+                else{
+                    document.getElementById("checkReg").innerHTML = "Register was not successful";
+                }
+            }
+        });
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/globalize.js"></script>
+    <script src="~/Scripts/globalize.culture.en-EN.js"></script>
+    <script>
+        $.validator.methods.number = function (value, element) {
+            return this.optional(element) ||
+                !isNaN(Globalize.parseFloat(value));
+        }
+        $(document).ready(function () {
+            Globalize.culture('fr-FR');
+        });
+    </script>
+    <script>
+        jQuery.extend(jQuery.validator.methods, {
+            range: function (value, element, param) {
+                //Use the Globalization plugin to parse the value
+                var val = $.global.parseFloat(value);
+                return this.optional(element) || (
+                    val >= param[0] && val <= param[1]);
+            }
+        });
+        
+    </script>
+}

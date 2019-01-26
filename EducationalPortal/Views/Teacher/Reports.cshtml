@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Reports</h2>
+
+
+
+<table class="table table-hover">
+
+    <tr>
+        <td>
+
+            @Html.ActionLink("Get Best 10 Students", "GetReports", new { reportID = 1 }, "Teacher")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.ActionLink("Get All Students with  Grade Average smaller than 5", "GetReports", new { reportID = 2 }, "Teacher")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.ActionLink("Get All Valid Homeworks", "GetReports", new { reportID = 3 }, "Teacher")
+        </td>
+    </tr>
+
+   
+</table>

@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "MyReports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rapoarte</h2>
+
+  <table class="table table-hover">
+      
+      <tr>
+          <td>
+
+              @Html.ActionLink("10 cele mai bune teme", "Homeworks", new { reportID = 1 }, "Student")
+          </td>
+      </tr>
+      <tr>
+          <td>
+              @Html.ActionLink("Toate temele terminate", "Homeworks", new { reportID = 2 }, "Student")
+          </td>
+      </tr>
+      <tr>
+          <td>
+              @Html.ActionLink("Temele in stadiu de rezolvare", "Homeworks", new { reportID = 3 }, "Student")
+          </td>
+      </tr>
+      <tr>
+          <td>
+              @Html.ActionLink("Temele acceptate", "Homeworks", new { reportID = 4 }, "Student")
+
+          </td>
+      </tr>
+      <tr>
+          <td>
+              @Html.ActionLink("Temele respinse", "Homeworks", new { reportID = 5 }, "Student")
+
+          </td>
+      </tr>
+</table>

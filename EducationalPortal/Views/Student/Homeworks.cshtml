@@ -1,0 +1,125 @@
+﻿@model IEnumerable<BusinessLayer.Models.StudentHomeworkViewModel>
+
+@{
+    ViewBag.Title = "Homeworks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Teme</h2>
+
+@if (Model.Count() != 0)
+{
+    <table class="table" id="hwTable">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Requirements)
+            </th>
+            <th>
+                @* @Html.Display("Status")*@
+                Status
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grade)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+
+            <th>
+                Files
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Requirements)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+
+                <td>
+
+                    @if (item.StatusID == "Pending" || item.StatusID=="Commented")
+                    {
+                        <div class="container">
+                            @using (Html.BeginForm("Upload", "StudentHomeworks", new { SHomeID = @item.SHomeID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <table class="table">
+                                    <tr>
+                                        <td>File:</td>
+                                        <td><input type="file" name="Files" id="Files" multiple style="color:black"/></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td><input type="submit" name="submit" value="Upload" /></td>
+
+                                    </tr>
+                                </table>
+                            }
+
+
+                        </div>
+                    }
+
+                    @if (item.StatusID == "Rejected")
+                    {
+                        <p class="alert-warning">You can't upload this homework anymore. </p>
+                    }
+
+                    @if (item.StatusID != "")
+                    {
+                        if (item.StatusID != null)
+                        {
+                           
+                              string[] s = item.Path.Split(' ');
+                        foreach(var file in s)
+                        {
+                            @file<br />
+                        }
+
+                                
+                            }
+                        }
+
+                </td>
+            </tr>
+
+        }
+    </table>
+
+}
+
+else
+{
+    <h3>
+        You don't have homeworks!
+    </h3><br />
+  
+
+}

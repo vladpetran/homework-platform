@@ -1,0 +1,70 @@
+﻿<div>
+@model BusinessLayer.Models.LogInViewModel
+    @Scripts.Render("~/bundles/jquery")
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id="formLogin"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        <h4>Va rugam sa va autentificati</h4>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RememberUser, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RememberUser)
+                @Html.ValidationMessageFor(model => model.RememberUser)
+            </div>
+        </div>
+        <p id="okLogin"></p>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="btnSub" type="button" value="Autentificare" onclick="return checkUser()" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+    <br />
+<div>
+    <input type="button" class="btn btn-danger" value="Pagina Principala" onclick="location.href='@Url.Action("Index","Account")'" />
+</div>
+</div>
+
+<script>
+    function checkUser() {
+        var form = $('#formLogin');
+        $.ajax({
+            preventdefault: true,
+            cache: false,
+            async: true,
+            type: "POST",
+            url: form.attr('action'),
+            data: form.serialize(),
+            success: function (data) {
+                if (data == "success") {
+                    location.href = "Home/Index";
+                }
+                else if (data == "fail") {
+                    document.getElementById("okLogin").innerHTML = "Autentificare eronata!";
+                }
+            }
+        });
+    }
+
+</script>
